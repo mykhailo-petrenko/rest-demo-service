@@ -1,10 +1,8 @@
 package com.luxoft.mapetrenko.restdemoservice.user;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import com.luxoft.mapetrenko.restdemoservice.exception.NotFoundException;
 
-@ResponseStatus(HttpStatus.NOT_FOUND)
-public class UserNotFoundException extends RuntimeException {
+public class UserNotFoundException extends NotFoundException {
     public UserNotFoundException(String message) {
         super(message);
     }
