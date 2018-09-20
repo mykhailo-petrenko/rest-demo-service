@@ -1,6 +1,15 @@
 # Demo REST Spring Boot Application
 
 ## Useful Tips
+### Authorization
+Spring Boot Security Starter
+
+`<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-security -->
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-security</artifactId>
+</dependency>`
+
 ### Static Filtering
 Just add `@JsonIgnore` to exclude corresponding bean properties from response.
 Or use the `@JsonIgnoreProperties` to configure class. 
