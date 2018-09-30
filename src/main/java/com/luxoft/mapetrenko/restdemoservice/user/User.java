@@ -2,14 +2,24 @@ package com.luxoft.mapetrenko.restdemoservice.user;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import io.swagger.models.auth.In;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
 import java.util.Date;
 
 @ApiModel(description = "Description for User model")
+@Entity
 public class User {
+    @Id
+    @GeneratedValue(generator = "usersGen")
+    @SequenceGenerator(name="usersGen", sequenceName = "users", initialValue=100, allocationSize = Integer.MAX_VALUE)
     private Integer id;
+
     @Size(min = 2)
     @ApiModelProperty(notes = "Should be at least 2 symbols")
     private String name;
@@ -18,18 +28,17 @@ public class User {
     @ApiModelProperty(notes = "Should be in the past")
     private Date birthday;
 
-    public User(Integer id, String name, Date birthday) {
-        this.id = id;
+    User() {
+
+    }
+
+    public User(String name, Date birthday) {
         this.name = name;
         this.birthday = birthday;
     }
 
     public Integer getId() {
         return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public String getName() {

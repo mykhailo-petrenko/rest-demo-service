@@ -19,3 +19,6 @@ Use `MappingJacksonValue` and `SimpleFilterProvider`.
 ### Monitoring
 Please use the `spring-boot-started-actuator` and `spring-data-rest-hal-browser`.
 Do not forget to setup `mapagement.endpoints.web.exposure.inclue=` into .properties file.
+
+### H2 in memory
+JDBC URL: jdbc:h2:mem:testdb

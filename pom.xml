@@ -35,12 +35,11 @@
             <artifactId>spring-boot-starter-web</artifactId>
             <version>2.0.4.RELEASE</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-security -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-            <version>2.0.4.RELEASE</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>org.springframework.boot</groupId>-->
+            <!--<artifactId>spring-boot-starter-security</artifactId>-->
+            <!--<version>2.0.4.RELEASE</version>-->
+        <!--</dependency>-->
         <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.dataformat/jackson-dataformat-xml -->
         <!--<dependency>-->
             <!--<groupId>com.fasterxml.jackson.dataformat</groupId>-->

@@ -8,11 +8,12 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class UserResource {
     @Autowired
-    private UserDAOService users;
+    private UserRepository users;
 
     @GetMapping(path = "/users")
     public List<User> retrieveUsers() {
@@ -21,13 +22,13 @@ public class UserResource {
 
     @GetMapping(path = "/users/{id}")
     public User retrieveUserById(@PathVariable Integer id) {
-        User user = users.findOne(id);
+        Optional<User> user = users.findById(id);
 
-        if (user == null) {
+        if (!user.isPresent()) {
             throw new UserNotFoundException("id: " + id);
         }
 
-        return user;
+        return user.get();
     }
 
     @PostMapping(path = "/users")
@@ -45,11 +46,13 @@ public class UserResource {
 
     @DeleteMapping(path = "/users/{id}")
     public ResponseEntity deleteUser(@PathVariable Integer id) {
-        User deletedUser = users.deleteById(id);
+        Optional<User> user = users.findById(id);
 
-        if (deletedUser == null) {
+        if (!user.isPresent()) {
             throw new UserNotFoundException("id: " + id);
         }
+
+        users.deleteById(id);
 
         return ResponseEntity.noContent().build();
     }
