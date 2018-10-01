@@ -1,16 +1,16 @@
 package com.luxoft.mapetrenko.restdemoservice.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.luxoft.mapetrenko.restdemoservice.post.Post;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import io.swagger.models.auth.In;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
+import javax.persistence.*;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
 import java.util.Date;
+import java.util.List;
 
 @ApiModel(description = "Description for User model")
 @Entity
@@ -27,6 +27,10 @@ public class User {
     @Past
     @ApiModelProperty(notes = "Should be in the past")
     private Date birthday;
+
+    @OneToMany(mappedBy = "user")
+    @JsonIgnore
+    private List<Post> posts;
 
     User() {
 
@@ -55,6 +59,14 @@ public class User {
 
     public void setBirthday(Date birthday) {
         this.birthday = birthday;
+    }
+
+    public List<Post> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(List<Post> posts) {
+        this.posts = posts;
     }
 
     @Override

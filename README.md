@@ -22,3 +22,7 @@ Do not forget to setup `mapagement.endpoints.web.exposure.inclue=` into .propert
 
 ### H2 in memory
 JDBC URL: jdbc:h2:mem:testdb
+
+Enable H2 console in test purposes `spring.h2.console.enabled=true`
+
+Go to http://localhost:8080/h2-console/

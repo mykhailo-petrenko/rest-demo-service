@@ -1,5 +1,7 @@
 package com.luxoft.mapetrenko.restdemoservice.user;
 
+import com.luxoft.mapetrenko.restdemoservice.post.Post;
+import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,15 +22,26 @@ public class UserResource {
         return users.findAll();
     }
 
-    @GetMapping(path = "/users/{id}")
-    public User retrieveUserById(@PathVariable Integer id) {
-        Optional<User> user = users.findById(id);
+    @GetMapping(path = "/users/{userId}")
+    public User retrieveUserById(@PathVariable Integer userId) {
+        Optional<User> user = users.findById(userId);
 
         if (!user.isPresent()) {
-            throw new UserNotFoundException("id: " + id);
+            throw new UserNotFoundException("id: " + userId);
         }
 
         return user.get();
+    }
+
+    @GetMapping(path = "/users/{userId}/posts")
+    public List<Post> retrievePostsByuserId(@PathVariable Integer userId) {
+        Optional<User> user = users.findById(userId);
+
+        if (!user.isPresent()) {
+            throw new UserNotFoundException("id: " + userId);
+        }
+
+        return user.get().getPosts();
     }
 
     @PostMapping(path = "/users")
