@@ -1,7 +1,7 @@
 package com.luxoft.mapetrenko.restdemoservice.user;
 
 import com.luxoft.mapetrenko.restdemoservice.post.Post;
-import io.swagger.models.auth.In;
+import com.luxoft.mapetrenko.restdemoservice.post.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +16,9 @@ import java.util.Optional;
 public class UserResource {
     @Autowired
     private UserRepository users;
+
+    @Autowired
+    private PostRepository posts;
 
     @GetMapping(path = "/users")
     public List<User> retrieveUsers() {
@@ -52,6 +55,26 @@ public class UserResource {
                 .fromCurrentRequest()
                 .path("/{id}")
                 .buildAndExpand(newUser.getId())
+                .toUri();
+
+        return ResponseEntity.created(location).build();
+    }
+
+    @PostMapping(path = "/users/{userId}/posts")
+    public ResponseEntity createPost(@PathVariable Integer userId, @Valid @RequestBody Post post) {
+        Optional<User> user = users.findById(userId);
+
+        if (!user.isPresent()) {
+            throw new UserNotFoundException("id: " + userId);
+        }
+
+        post.setUser(user.get());
+
+        posts.save(post);
+
+        URI location = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .build()
                 .toUri();
 
         return ResponseEntity.created(location).build();
